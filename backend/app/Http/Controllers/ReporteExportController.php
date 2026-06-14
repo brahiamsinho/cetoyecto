@@ -167,6 +167,8 @@ class ReporteExportController extends Controller
         }
 
         try {
+            ini_set('memory_limit', '512M');
+
             $reportConfig = $config[$reportKey];
             $data = $this->{$reportConfig['data_method']}($request);
             $columns = $reportConfig['columns'];

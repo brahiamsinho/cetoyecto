@@ -3,6 +3,8 @@ vendor/
 .env
 .phpunit.*
 
+backend/bootstrap/cache/*.php
+
 storage/framework/cache/data/*
 !storage/framework/cache/data/.gitkeep
 
