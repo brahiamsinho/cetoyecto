@@ -2,6 +2,7 @@
 # This file is a template rendered by envsubst; only ${DOMAIN} is substituted.
 # Docker Compose services are bound to 127.0.0.1 so all public traffic
 # must enter through this host-level nginx instance.
+# certbot --nginx will add the 443 SSL block and HTTP->HTTPS redirect.
 
 upstream frontend {
     server 127.0.0.1:5173;
@@ -19,25 +20,10 @@ upstream pgadmin {
     server 127.0.0.1:5050;
 }
 
-# Redirect all HTTP traffic to HTTPS.
 server {
     listen 80;
     listen [::]:80;
     server_name ${DOMAIN};
-
-    location / {
-        return 301 https://$host$request_uri;
-    }
-}
-
-server {
-    listen 443 ssl http2;
-    listen [::]:443 ssl http2;
-    server_name ${DOMAIN};
-
-    # SSL certificate paths are managed by certbot.
-    # ssl_certificate and ssl_certificate_key directives will be inserted here
-    # automatically after running certbot --nginx.
 
     client_max_body_size 50M;
 
