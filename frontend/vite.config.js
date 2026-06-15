@@ -9,6 +9,7 @@ export default defineConfig(({ mode }) => {
     server: {
       port: 5173,
       host: '0.0.0.0',
+      allowedHosts: [process.env.DOMAIN || 'cupficct.duckdns.org'],
       hmr: {
         clientPort: 5173,
       },

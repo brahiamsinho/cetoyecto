@@ -25,6 +25,7 @@ services:
     environment:
       PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-admin@example.com}
       PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-admin}
+      SCRIPT_NAME: /pgadmin
     depends_on:
       - postgres
     restart: unless-stopped
@@ -35,6 +36,8 @@ services:
     ports:
       - "127.0.0.1:1025:1025"
       - "127.0.0.1:8025:8025"
+    environment:
+      MP_UI_WEB_ROOT: /mailpit
     restart: unless-stopped
 
   backend:
