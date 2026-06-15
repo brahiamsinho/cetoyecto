@@ -23,6 +23,8 @@ class DatabaseSeeder extends Seeder
             NotaSeeder::class,
             GrupoSeeder::class,
             DocenteSeeder::class,
+            DocenteUserSeeder::class,
+            PostulanteUserSeeder::class,
             CargaHorariaSeeder::class,
             AsistenciasSeeder::class,
         ]);

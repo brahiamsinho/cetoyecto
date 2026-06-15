@@ -12,6 +12,24 @@ export default function LoginPage() {
   const { login } = useAuth()
   const navigate = useNavigate()
 
+  const demoAccounts = [
+    {
+      role: 'Admin / CPD',
+      email: 'admin@ficct.edu.bo',
+      password: 'password',
+    },
+    {
+      role: 'Docente',
+      email: 'cmendoza@ficct.edu.bo',
+      password: 'carlos123',
+    },
+    {
+      role: 'Estudiante / Postulante',
+      email: 'postulante2@example.test',
+      password: 'bruno123',
+    },
+  ]
+
   const handleSubmit = async (e) => {
     e.preventDefault()
     setError('')
@@ -28,6 +46,12 @@ export default function LoginPage() {
     } finally {
       setLoading(false)
     }
+  }
+
+  const handleAutofill = (account) => {
+    setEmail(account.email)
+    setPassword(account.password)
+    setError('')
   }
 
   return (
@@ -76,6 +100,26 @@ export default function LoginPage() {
           <Link to="/forgot-password" className="text-sm text-blue-600 hover:text-blue-800">
             ¿Olvidó su contraseña?
           </Link>
+        </div>
+
+        <div className="mt-6 rounded-xl border border-slate-200 bg-slate-50 p-4">
+          <p className="text-sm font-semibold text-slate-700 mb-3">Cuentas de prueba</p>
+          <div className="space-y-3 text-sm">
+            {demoAccounts.map((account) => (
+              <div key={account.role} className="rounded-lg bg-white border border-slate-200 p-3">
+                <div className="font-medium text-slate-800">{account.role}</div>
+                <div className="text-slate-600">Email: {account.email}</div>
+                <div className="text-slate-600">Contraseña: {account.password}</div>
+                <button
+                  type="button"
+                  onClick={() => handleAutofill(account)}
+                  className="mt-3 inline-flex rounded-md border border-blue-200 bg-blue-50 px-3 py-1.5 text-xs font-medium text-blue-700 hover:bg-blue-100"
+                >
+                  Usar estas credenciales
+                </button>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </div>
