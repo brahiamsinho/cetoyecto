@@ -66,12 +66,9 @@ apt-get update
 apt-get upgrade -y
 
 log "Installing Docker from the official repository..."
-for pkg in docker.io docker-doc docker-compose docker-compose-v2 podman-docker containerd runc; do
-    if dpkg -l | grep -q "^ii  $pkg"; then
-        log "Removing $pkg to avoid conflicts with docker-ce..."
-        apt-get remove -y "$pkg"
-    fi
-done
+# Purge any conflicting or partially installed Docker packages from the VM image.
+apt-get purge -y docker.io docker-doc docker-compose docker-compose-v2 docker-compose-plugin podman-docker containerd runc || true
+apt-get autoremove -y || true
 apt-get install -y ca-certificates curl gnupg
 install -m 0755 -d /etc/apt/keyrings
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor -o /etc/apt/keyrings/docker.gpg
